@@ -74,7 +74,6 @@ public class HLAfixedRecordImpl extends DataElementBase
 
     public void encode(ByteWrapper byteWrapper) throws EncoderException {
        byteWrapper.align(getOctetBoundary());
-       byteWrapper.putInt(values.size());
        for (Iterator<DataElement> it = values.iterator(); it.hasNext();) {
            DataElement elem  = it.next();
            elem.encode(byteWrapper);
@@ -92,8 +91,6 @@ public class HLAfixedRecordImpl extends DataElementBase
 
     public void decode(ByteWrapper byteWrapper) throws DecoderException {
         byteWrapper.align(getOctetBoundary());
-        int nbElem = byteWrapper.getInt();
-        values.ensureCapacity(nbElem);
         /* FIXME we may optimize this in order to avoid reallocation 
          * we should
          *  - verify size

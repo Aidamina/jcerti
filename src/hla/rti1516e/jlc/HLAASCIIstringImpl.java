@@ -67,6 +67,7 @@ public class HLAASCIIstringImpl extends DataElementBase implements
         byteWrapper.align(getOctetBoundary());
         int len = byteWrapper.getInt();
         byte content[] = new byte[len];
+        byteWrapper.get(content);
         try {
             value = new String(content,CHARACTER_SET);
         } catch (UnsupportedEncodingException e) {
