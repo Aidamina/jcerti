@@ -91,6 +91,8 @@ public class HLAfixedRecordImpl extends DataElementBase
 
     public void decode(ByteWrapper byteWrapper) throws DecoderException {
         byteWrapper.align(getOctetBoundary());
+        int nbElem = byteWrapper.getInt();
+        values.ensureCapacity(nbElem);
         /* FIXME we may optimize this in order to avoid reallocation 
          * we should
          *  - verify size
@@ -99,10 +101,10 @@ public class HLAfixedRecordImpl extends DataElementBase
          *  - add 
          */
         values.clear();
-        for (int i = 0; i<nbElem;++i) {
-            DataElement elem = efactory.createElement(i);
+
+        for (int i = 0; i<values.size();++i) {
+            DataElement elem = values.get(i);
             elem.decode(byteWrapper);
-            values.add(elem);
         }
     }
 
